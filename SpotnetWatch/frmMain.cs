@@ -203,7 +203,16 @@ namespace SpotnetWatch
 				bgDBScanner.ReportProgress(0, "Ongeldige database aanvraag... controleer de filters");
 				return;
 			}
-			string connectionString = "Data Source=" + appModule.PATH_SPOT_DATABASE + ";Version=3;";
+            string input = appModule.PATH_SPOT_DATABASE;
+
+            // Check if the input starts with a double backslash
+            if (input.StartsWith("\\\\"))
+            {
+                // Prefix with an extra backslash
+                input = "\\" + input;
+            }
+
+            string connectionString = "Data Source=" + input + ";Version=3;";
 			SQLiteConnection sQLiteConnection = new SQLiteConnection(connectionString);
 			try
 			{
